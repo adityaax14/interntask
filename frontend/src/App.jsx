@@ -21,7 +21,7 @@ export default function App() {
   const [dates, setDates] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Load data if clinic_id and date are in URL params
   useEffect(() => {
@@ -42,6 +42,9 @@ export default function App() {
       setClinicId(cid);
       setDate(dt);
       setNarrative(null);
+      
+      // Update the URL so that reloading the page remembers the selected data
+      setSearchParams({ clinicId: cid, date: dt }, { replace: true });
 
       const [reconData, analyticsData, datesData] = await Promise.all([
         getReconciliation(cid, dt),
