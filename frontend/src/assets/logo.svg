@@ -1,0 +1,18 @@
+<svg width="180" height="50" viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- S -->
+  <text x="5" y="35" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#0b3887">Swasthi</text>
+  
+  <!-- Q Heart -->
+  <path d="M140 10 C 125 -5, 115 15, 140 25 C 165 15, 155 -5, 140 10" fill="#0b3887"/>
+  <path d="M140 10 C 130 0, 125 15, 140 35 C 155 15, 150 0, 140 10 Z" fill="#00b4b4"/>
+  
+  <!-- White cross inside heart -->
+  <rect x="137" y="15" width="6" height="12" fill="white" />
+  <rect x="134" y="18" width="12" height="6" fill="white" />
+
+  <!-- Q Tail -->
+  <path d="M145 28 L155 40 L165 40 L150 25 Z" fill="#00b4b4"/>
+
+  <!-- TM -->
+  <text x="165" y="15" font-family="Arial, sans-serif" font-weight="bold" font-size="10" fill="#0b3887">TM</text>
+</svg>
