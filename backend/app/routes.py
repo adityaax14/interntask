@@ -38,10 +38,31 @@ async def upload_billing_log(file: UploadFile = File(...)):
     Malformed rows are rejected with specific errors but don't
     crash the entire request — partial processing is supported.
     """
+    MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+
+    if getattr(file, 'size', 0) and getattr(file, 'size', 0) > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail={
+                "error": "File too large",
+                "message": "File exceeds the maximum allowed size of 10MB.",
+            },
+        )
+
     # ── Parse JSON ───────────────────────────────────────────────────
     try:
-        content = await file.read()
+        content = await file.read(MAX_FILE_SIZE + 1)
+        if len(content) > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=413,
+                detail={
+                    "error": "File too large",
+                    "message": "File exceeds the maximum allowed size of 10MB.",
+                },
+            )
         raw_data = json.loads(content.decode("utf-8"))
+    except HTTPException:
+        raise
     except json.JSONDecodeError as exc:
         raise HTTPException(
             status_code=400,

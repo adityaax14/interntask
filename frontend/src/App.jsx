@@ -61,6 +61,14 @@ export default function App() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Limit file size to 10MB
+    const MAX_FILE_SIZE_MB = 10;
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      setUploadError(`File is too large. Please upload a file smaller than ${MAX_FILE_SIZE_MB}MB.`);
+      e.target.value = "";
+      return;
+    }
+
     setUploading(true);
     setUploadError(null);
     setNarrative(null);
