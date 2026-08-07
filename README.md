@@ -6,6 +6,12 @@ A full-stack application that ingests a clinic's daily billing log and produces:
 2. **Analytics** — revenue by hour of day, top medicines by quantity and revenue
 3. **AI Narrative Summary** — LLM-generated WhatsApp-style summary with every figure traced to the deterministic report
 
+## Live Demo
+
+- **Frontend (Vercel):** [https://interntask-sand.vercel.app/](https://interntask-sand.vercel.app/)
+- **Backend API (Render):** [https://interntask-1-8qj6.onrender.com](https://interntask-1-8qj6.onrender.com)
+*(Note: The backend is hosted on Render's free tier. The frontend is configured to ping the backend to keep it awake while the application is open.)*
+
 ## Tech Stack
 
 | Layer    | Technology                                    |
@@ -197,12 +203,13 @@ Returns list of clinics with uploaded data.
 
 | Scenario | Handling |
 |---|---|
-| All-refunds day (July 25) | Billed/collected/outstanding = 0; refunds computed correctly; analytics empty |
+| All-refunds day (July 25) | Billed/collected/outstanding = 0; refunds computed correctly; analytics empty (does not artificially drive billed/collected into negatives) |
 | Empty day (July 26) | Graceful all-zero report; date extracted from filename |
 | Missing payment_mode (V-019) | Rejected with specific error; remaining 18 records processed |
 | Misspelled drug name (PARACETMOL) | Treated as distinct drug — the system does not autocorrect |
 | Refund with positive amount | Validation error: "Refund amounts should be negative" |
 | LLM failure/malformed response | Returns error status with message; does not crash |
+| Extremely large file upload | Strict 10MB limit enforced on both frontend and backend to protect server memory (returns `413 Payload Too Large`) |
 
 ## Running Tests
 
