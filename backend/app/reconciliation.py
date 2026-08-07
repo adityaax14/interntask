@@ -50,16 +50,9 @@ def compute_reconciliation(
         )
 
         if record.is_refund:
-            # Refund: amount_paid_paise is already negative, we make billed and discount negative too
-            row_billed = -row_billed
-            discount = -record.discount_paise
-            
+            # Refunds are tracked separately and do not affect gross billed or collected
             mode_refunds[mode] += abs(record.amount_paid_paise)
             refund_count += 1
-            
-            mode_billed[mode] += row_billed
-            mode_collected[mode] += record.amount_paid_paise
-            mode_discount[mode] += discount
         else:
             # Normal transaction
             visit_count += 1
