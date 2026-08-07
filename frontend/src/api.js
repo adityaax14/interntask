@@ -99,3 +99,16 @@ export function formatDate(dateStr) {
     year: "numeric",
   });
 }
+
+/**
+ * Ping backend health endpoint to keep it alive on free hosting tiers (e.g., Render)
+ */
+export async function pingHealth() {
+  try {
+    const baseUrl = API_BASE.replace("/api/billing", "");
+    await fetch(`${baseUrl}/health`);
+  } catch (err) {
+    console.warn("Health check ping failed:", err);
+  }
+}
+

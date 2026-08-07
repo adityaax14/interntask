@@ -9,6 +9,7 @@ import {
   getReconciliation,
   getAnalytics,
   getDates,
+  pingHealth,
 } from "./api";
 
 export default function App() {
@@ -29,6 +30,11 @@ export default function App() {
     if (paramClinic && paramDate) {
       loadData(paramClinic, paramDate);
     }
+
+    // Ping backend every 10 minutes (600,000 ms) to keep it alive (e.g., on Render)
+    pingHealth(); // Initial ping
+    const keepAliveInterval = setInterval(pingHealth, 600000);
+    return () => clearInterval(keepAliveInterval);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadData = async (cid, dt) => {
