@@ -3,7 +3,7 @@
  * All functions return parsed JSON responses.
  */
 
-const API_BASE = "http://localhost:8000/api/billing";
+const API_BASE = import.meta.env.VITE_API_URL || "https://interntask-1-8qj6.onrender.com/api/billing";
 
 /**
  * Upload a billing log JSON file.
